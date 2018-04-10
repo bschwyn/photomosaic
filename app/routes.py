@@ -40,4 +40,10 @@ def upload_file():
         target = os.path.join(app.root_path, 'static')
         f.save(os.path.join(target, f.filename))
     #do stuff with uploaded image
-    return render_template('template.html', filename='picture.jpg')
+    filename = f.filename
+    return render_template('template.html', filename=filename)
+
+@app.route('/rotate', methods = ['GET', 'POST'])
+def rotate():
+    return "hello"
+

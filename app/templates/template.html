@@ -7,6 +7,9 @@
     <title>Hello</title>
         {% if filename %}
         <h1><img src="{{ url_for('static', filename=filename) }}"> hello </h1>
+        <form action = "http://localhost:5000/rotate" method = "POST"
+            enctype = "multipart/form-data">
+        </form >
         {% else %}
         <h1>no image for whatever reason</h1>
         {% endif %}
