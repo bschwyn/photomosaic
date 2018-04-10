@@ -3,13 +3,14 @@ from PIL import Image
 import pickle
 import time
 
+#to do list for flask website
+#
+
 class OriginalPhoto():
 
     def __init__(self, file):
         im = Image.open(file)
         self.width, self.height = im.size
-
-
 
 class Photomosaic():
 
