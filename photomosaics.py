@@ -126,7 +126,7 @@ class Photomosaic():
                 #x,y are the upper left orner
                 x,y = width*j, height*i
                 im.paste(source_photo, box = (x,y))
-                im.close()
+        im.close()
         return im
 
     def get_average_color(self, x,y, w,h, image): #tested
@@ -233,7 +233,7 @@ def test_construct_color_files_list():
     print(count)
 
 
-#test_construct_color_files_list()
+test_construct_color_files_list()
 test_pickle()
 test_get_average_color()
 test_average_color_grid()
@@ -245,8 +245,8 @@ print('testspass')
 def main():
     print('start')
     photomosaic = Photomosaic("/home/ben/Pictures/backup pics/1c17411e3b4343dbcc7206e41585ae6d-d5xkb9b.jpg",'/home/ben/Pictures/')
-    x = photomosaic.construct_mosaic(90, 80, 5)
-    x.save('/home/ben/Documents/aphotomosaic12.jpg')
+    x = photomosaic.construct_mosaic(10, 10, 1)
+    x.save('/home/ben/Documents/aphotomosaic13.jpg')
     print('end')
 
 if __name__ == "__main__":

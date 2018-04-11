@@ -1,9 +1,11 @@
 from app import app
 from flask import Flask, request, render_template, send_from_directory, redirect, url_for
 from werkzeug import secure_filename
+
 import os
 
 from PIL import Image
+
 
 TESTBLA_FOLDER = os.path.join('static', 'testbla')
 app.config['UPLOAD_FOLDER'] = TESTBLA_FOLDER
@@ -53,3 +55,14 @@ def rotate(filename):
     rotated = "/rotated/" + filename
     return render_template('template2.html', filename=rotated)
 
+
+from .photomosaics2 import Photomosaic
+
+#@app.route('/create_mosaic/<filename>', methods = ['GET', 'POST'])
+#def mosaic(filename):
+@app.route('/create_mosaic')
+def mosaic():
+    photomosaic = Photomosaic("/home/ben/Projects/photomosaic/app/static/test.jpg",
+                              '/home/ben/Pictures/')
+    x = photomosaic.construct_mosaic(10, 10, 1)
+    return "ppphoototototo"
