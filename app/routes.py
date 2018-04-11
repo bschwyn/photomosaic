@@ -3,6 +3,8 @@ from flask import Flask, request, render_template, send_from_directory, redirect
 from werkzeug import secure_filename
 import os
 
+from PIL import Image
+
 TESTBLA_FOLDER = os.path.join('static', 'testbla')
 app.config['UPLOAD_FOLDER'] = TESTBLA_FOLDER
 
@@ -43,7 +45,11 @@ def upload_file():
     filename = f.filename
     return render_template('template.html', filename=filename)
 
-@app.route('/rotate', methods = ['GET', 'POST'])
-def rotate():
-    return "hello"
+@app.route('/rotate/<filename>', methods=['GET', 'POST'])
+def rotate(filename):
+    img = Image.open("/home/ben/Projects/photomosaic/app/static/" + filename)
+    img2 = img.rotate(90)
+    img2.save("/home/ben/Projects/photomosaic/app/static/rotated/" + filename)
+    rotated = "/rotated/" + filename
+    return render_template('template2.html', filename=rotated)
 
