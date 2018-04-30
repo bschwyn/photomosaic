@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Photomosaic Image Upload </title>
+    <meta name ="description"
+    conent="TinEye is a reverse image search engine. Search by image: Give it an image and it will tell you where the image appears on the web.">
+    </head>
+    <body>
+
+
+
+    <div class="forms ">
+             <form action = "http://localhost:5000/uploader" method = "POST"
+                                                 enctype = "multipart/form-data">
+                <input type = "file" name = "file" />
+                <input type = "submit"/>
+             </form >
+
+            <form id="url_form" method="post" action="http://localhost:5000/uploader_url">
+              <div class="input-container">
+                <input class="image-url" id="url_box" name="url" maxlength="100000" placeholder="Upload or enter Image URL"  type="text"  />
+              </div>
+              <input class="submit-button" id="url_submit" name="search_button" value=""  type="submit" />
+            </form>
+        </div>
+    </body>
+</html>
