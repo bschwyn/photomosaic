@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Uploaded Picture</title>
+    </head>
+    <body>
+    <title>Hello</title>
+        {% if filename %}
+        <h1><img src="{{ url_for('static', filename=filename) }}"> this is the uploaded image </h1>
+        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" method = "POST"
+            enctype = "multipart/form-data">
+            <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
+            <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>
+            <input type = "number" name="scale" maxlength = "100000" placeholder="relative size of final image" />
+            <input type = "submit"/>
+        </form >
+        {% else %}
+        <h1>no image for whatever reason</h1>
+        {% endif %}
+  </body>
+</html>
