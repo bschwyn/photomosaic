@@ -3,8 +3,41 @@
     <head>
         <title>Uploaded Picture</title>
     </head>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+
+    <script>
+        var validator = new FormValidator('example_form', [
+            {
+                name = 'req',
+                display: 'required',
+                rules; 'required'
+            },{
+                name: 'password',
+                rules: 'required'
+            }], function(errors, event) {
+                if (errors.length > 0) {
+                    //show the errors
+                }
+            });
+    </script>
+
     <body>
-        <h1> helo this is a shitty test</h1>
-        <img src="{{bla}}", alt="User Image">
+            <form action = "http://localhost:5000/"
+                                                 enctype = "multipart/form-data">
+                <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
+                <input type = "submit" value="submit"/>
+             </form >
+        <script>
+            var constraints = {
+                width: {
+                    presence: true
+                }
+            }
+
+            //hook up the form so we cna prevent it from being posted
+            var form = document.queryselector("form#main");
+        </script>
     </body>
+
 </html>

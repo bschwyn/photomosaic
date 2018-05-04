@@ -1,19 +1,74 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Uploaded Picture</title>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+
+        <script>
+            function isInt(value) {
+                return !isNaN(value) &&
+                parseInt(Number(value)) == value &&
+                !isNaN(parseInt(value, 10));
+            }
+        </script>
+
+        <script type="text/javascript">
+            function testscript() {
+                alert("hello this is a test");
+            }
+        </script>
+
+        <script type="text/javascript">
+            function validate() {
+                if (not isInt(document.myForm.width.value)) or
+                    document.myForm.width.value < 1  or
+                    document.myForm.width.value > 300 or
+                    document.myForm.width.value))
+                {
+                    alert("enter a number from 1 to 300 for the width");
+                    document.myForm.width.focus();
+                    return false;
+                }
+                if (not isInt(document.myForm.height.value)) or
+                    document.myForm.height.value < 1  or
+                    document.myForm.height.value > 300 or
+                    document.myForm.height.value))
+                {
+                    alert("enter a number from 1 to 300 for the height");
+                    document.myForm.height.focus();
+                    return false;
+                }
+
+                if (not isInt(document.myForm.scale.value)) or
+                    document.myForm.scale.value < 1  or
+                    document.myForm.scale.value > 10 or
+                    document.myForm.scale.value))
+                {
+                    alert("enter a number from 1 to 10 for the scale");
+                    document.myForm.scale.focus();
+                    return false;
+                }
+                return true
+            }
+        </script>
     </head>
     <body>
     <title>Hello</title>
         {% if filename %}
         <h1><img src="{{ url_for('static', filename=filename) }}"> this is the uploaded image </h1>
-        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" method = "POST"
+        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" name = "myForm" onsubmit="return validate()();" method = "POST"
             enctype = "multipart/form-data">
             <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
             <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>
             <input type = "number" name="scale" maxlength = "100000" placeholder="relative size of final image" />
-            <input type = "submit"/>
+            <input type = "submit" value="submit"/>
         </form >
+        <form onsubmit="return(testscript());">
+            <input type="submit"/>
+        </form>
         {% else %}
         <h1>no image for whatever reason</h1>
         {% endif %}
