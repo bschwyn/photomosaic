@@ -5,7 +5,7 @@
     <head>
         <title>Uploaded Picture</title>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
         <script>
             function isInt(value) {
@@ -16,42 +16,40 @@
         </script>
 
         <script type="text/javascript">
-            function testscript() {
-                alert("hello this is a test");
+            window.onload=function() {
+                if (window.jQuery) {
+                alert("yes");
+                } else {
+                    alert("doesn't work");
+                }
             }
         </script>
 
-        <script type="text/javascript">
-            function validate() {
-                if (not isInt(document.myForm.width.value)) or
-                    document.myForm.width.value < 1  or
-                    document.myForm.width.value > 300 or
-                    document.myForm.width.value))
-                {
-                    alert("enter a number from 1 to 300 for the width");
-                    document.myForm.width.focus();
-                    return false;
-                }
-                if (not isInt(document.myForm.height.value)) or
-                    document.myForm.height.value < 1  or
-                    document.myForm.height.value > 300 or
-                    document.myForm.height.value))
-                {
-                    alert("enter a number from 1 to 300 for the height");
-                    document.myForm.height.focus();
-                    return false;
-                }
 
-                if (not isInt(document.myForm.scale.value)) or
-                    document.myForm.scale.value < 1  or
-                    document.myForm.scale.value > 10 or
-                    document.myForm.scale.value))
-                {
-                    alert("enter a number from 1 to 10 for the scale");
-                    document.myForm.scale.focus();
-                    return false;
+        <script type="text/javascript">
+
+            function objectifyForm(formArray) {
+                var returnArray = {}
+                for (var i=0; i < formArray.length; i++) {
+                    returnArray[formArray[i]['name']] = formArray[i]['value'];
                 }
-                return true
+                return returnArray;
+            }
+
+            //var data = $('#myFormID').serializeArray()
+
+            function validate() {
+                try {
+                  var data =
+                  var data = JSON.parse($('#myFormID').serializeArray());
+                  alert(data);
+                return false
+                }
+                catch(err) {
+                    alert(err.message);
+                    return false
+                }
+                return false
             }
         </script>
     </head>
@@ -59,7 +57,7 @@
     <title>Hello</title>
         {% if filename %}
         <h1><img src="{{ url_for('static', filename=filename) }}"> this is the uploaded image </h1>
-        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" name = "myForm" onsubmit="return validate()();" method = "POST"
+        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" name = "myFormID" id="myForm" onsubmit="return validate();" method = "POST"
             enctype = "multipart/form-data">
             <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
             <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>
@@ -74,3 +72,4 @@
         {% endif %}
   </body>
 </html>
+>
