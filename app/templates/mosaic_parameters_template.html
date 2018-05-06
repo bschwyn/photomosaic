@@ -16,33 +16,13 @@
         </script>
 
         <script type="text/javascript">
-            window.onload=function() {
-                if (window.jQuery) {
-                alert("yes");
-                } else {
-                    alert("doesn't work");
-                }
-            }
-        </script>
 
-
-        <script type="text/javascript">
-
-            function objectifyForm(formArray) {
-                var returnArray = {}
-                for (var i=0; i < formArray.length; i++) {
-                    returnArray[formArray[i]['name']] = formArray[i]['value'];
-                }
-                return returnArray;
-            }
-
-            //var data = $('#myFormID').serializeArray()
 
             function validate() {
                 try {
-                  var data =
-                  var data = JSON.parse($('#myFormID').serializeArray());
-                  alert(data);
+                  var data = $('#myFormID').serializeArray();
+                  var width = data[0]["value"]
+                  alert(width);
                 return false
                 }
                 catch(err) {
@@ -56,8 +36,10 @@
     <body>
     <title>Hello</title>
         {% if filename %}
+
+
         <h1><img src="{{ url_for('static', filename=filename) }}"> this is the uploaded image </h1>
-        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" name = "myFormID" id="myForm" onsubmit="return validate();" method = "POST"
+        <form action = "http://localhost:5000/create_mosaic/{{filename}}/" name = "myForm" id="myFormID" onsubmit="return validate();" method = "POST"
             enctype = "multipart/form-data">
             <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
             <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>
@@ -72,4 +54,3 @@
         {% endif %}
   </body>
 </html>
->
