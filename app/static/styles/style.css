@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    background-color: #ffe8d4;
+}
+
+
+.top-section {
+    background-color: #5278A6;
+    box-sizing: border-box;
+}
+
+h1 {
+  font-size: 3em;
+  margin-top: 50px;
+  text-align: center;
+  letter-spacing: -3px;
+  padding-top: 50px;
+}
+
+h3 {
+  font-size: 1.7em;
+  font-weight: 100;
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+
+/*.url-image-submit {
+    text-align: center;
+    padding-bottom: 20px;
+} */
+
+.local-image-upload {
+    float: left
+}
+
+.local-image-submit {
+    float: right
+    /* If I can, stack this below choose file*/
+}
+
+.bla-forms {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    padding-right: 50px;
+}
+
+.url-image {
+    display: block;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    left: 50px;
+    right: 30px;
+}
+
+.url-image-upload {
+    color: #333;
+    border: None;
+    outline: 0;
+    border-radius: 10px 0 0 10px;
+    display: block;
+    float: left;
+    width: 100%;
+    height: 40px;
+   /* padding: 10px;*/
+}
+
+.url-image-submit {
+    opacity: 1;
+    display: block;
+    position: absolute;
+    right: 0;
+    background-color: #FFF;
+    height: 40px;
+    min-width: 50px;
+}
