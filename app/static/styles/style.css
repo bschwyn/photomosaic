@@ -79,7 +79,8 @@ h3 {
     right: 50px; /*same width as padding-right on bla-forms*/
     background-color: #FFF;
     background-image: url("hecatesmall.png");
-    background-position; 5px 0;
+    border: none;
+    background-position; 3px 2px;
     background-repeat: no-repeat;
     height: 40px;
     min-width: 50px;

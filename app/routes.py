@@ -66,8 +66,10 @@ def upload_file():
             #not guaranteed to save a unique file, just highly likely
             filename = uniquify(f.filename)
             f.save(os.path.join(target, filename))
+        defaultpic="defaultpic.jpg"
+        print(filename, file=sys.stderr)
 
-    return render_template('mosaic_parameters_template.html', filename=filename)
+    return render_template('mosaic_parameters_template.html', filename=filename, defaultpic=defaultpic)
 
 @app.route('/uploader_url', methods=['GET', 'POST'])
 def download_url_and_upload():
