@@ -93,7 +93,7 @@ class Octree():
         #crosswise quadrant, special distance == one axis the same, others point to 1,1 off
 
 
-    def find_nearest_point2(self, searchpoint):
+    def find_nearest_point(self, searchpoint):
         q = MyPriorityQueue()
         #put root.origin in queue
         q.put(self.root, self.dist(self.closest_point_within_octant(self.root.origin, searchpoint)))
@@ -114,30 +114,6 @@ class Octree():
                         q.put(point, self.dist(searchpoint, point))
 
 
-
-    def find_nearest_point(self, point):
-        return self.nearest_point_aux(self.root, point)
-
-    def nearest_point_aux(self, root, point):
-        if point[0] == root.origin[0] or point[1] == root.origin[1] or point[2] == root.origin[2] or root.size <=1:
-            #find nearest point
-
-
-            mindist = 255 ** 2 + 255 ** 2 + 255 ** 2
-            for (x2,y2,z2) in root.points:
-                x,y,z = point
-                dist = (x2 - x) ** 2 + (y2 - y) ** 2 + (z2 - z) ** 2
-                if dist < mindist:
-                    mindist = dist
-            return mindist
-
-        else:
-            quandrant_number = self.find_quadrant_number(root, point)
-            child = root.children[quandrant_number]
-            if child:
-                return self.search(child, point)
-            else:
-                adjacent_children = self.get_adjacent_children(quandrant_number)
 
     def find_quadrant_number(self,root, point):
         x_0, y_0, z_0 = root.origin
