@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import pickle
 import time
+from octree import *
 
 #to do list for flask website
 #
@@ -49,10 +50,10 @@ class Photomosaic():
     def get_colorfiles(self, source_pictures):
         if os.path.isfile('./averagecolors_to_pictures7.pickle'):
             with open('./averagecolors_to_pictures7.pickle', 'rb') as handle:
-                color_files_list = pickle.loads(handle.read())
+                color_files = pickle.loads(handle.read())
         else:
-            color_files_list = self.construct_color_files_list(source_pictures)
-        return color_files_list
+            color_files = self.construct_color_files_dict(source_pictures)
+        return color_files
 
     def get_photo_grid(self, gridbox_size, rows, cols, rgb_matrix, source_pictures):
         """given a matrix of colors, creates a matrix of photos where each photo has the nearest color average to the grid location.
@@ -71,7 +72,7 @@ class Photomosaic():
                 nearest_photos[i][j] = resized_nearest_photo
         return nearest_photos
 
-    def construct_color_files_list(self, source_pictures):
+    def construct_color_files_dict(self, source_pictures):
         avg_colors_of_pictures = {}
         for root, subFolders, files in os.walk(source_pictures):
             for file in files:
@@ -87,6 +88,12 @@ class Photomosaic():
                     print('error', file)
         self.save_colors(avg_colors_of_pictures)
         return avg_colors_of_pictures
+
+    def construct_color_octree(self, color_files):
+        efficient_color_files = Octree(256)
+        for rgb_point in color_files.keys():
+            efficient_color_files.insert(rgb_point)
+
 
     def save_colors(self, avg_colors_of_pictures):
         with open('./averagecolors_to_pictures7.pickle', 'wb') as f:
@@ -108,6 +115,13 @@ class Photomosaic():
         im = Image.open(minfile)
 
         print(minfile)
+        return im
+
+    def find_nearest_photo_l2norm_octree(self, r,b,g, colorlist):
+        nearest = a.find_nearest_point((r,g,b))
+
+        minfile = colorlist[(r,g,b)]
+        im = Image.open(minfile)
         return im
 
 
@@ -212,7 +226,7 @@ def test_pickle():
         c = pickle.loads(f.read())
     assert d == c
 
-def test_construct_color_files_list():
+def test_construct_color_files_dict():
 
     source_pictures = '/home/ben/Pictures/'
     d = {}
@@ -233,7 +247,7 @@ def test_construct_color_files_list():
     print(count)
 
 
-test_construct_color_files_list()
+test_construct_color_files_dict()
 test_pickle()
 test_get_average_color()
 test_average_color_grid()

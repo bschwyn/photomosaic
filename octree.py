@@ -24,10 +24,30 @@ class CubeNode():
     def __init__(self, origin, size):
         self.children = [None,None, None, None, None,None, None,None]
         self.origin = origin
+        self.bounds = [self.origin[0] - size//2, self.origin[0] + size//2,
+                       self.origin[1] - size//2, self.origin[1] + size//2,
+                       self.origin[2] - size//2, self.origin[2] + size//2]
         self.size = size
         self.points = []
         #has range
         #has 8 children <x<y<z, <x<y>z.... how about 0 to 7 in binary
+
+from queue import PriorityQueue
+
+class MyPriorityQueue(PriorityQueue):
+
+    def __init__(self):
+        PriorityQueue.__init__(self)
+        self.counter = 0
+
+    def put(self, item, priority):
+        PriorityQueue.put(self, (priority, self.counter, item))
+        self.counter +=1
+
+    def get(self, *args, **kwargs):
+        _, _, item = PriorityQueue.get(self, *args, **kwargs)
+        return item
+
 
 class Octree():
 
@@ -36,9 +56,69 @@ class Octree():
         #min size --- how many framse
         self.origin = ((size-1)//2, (size-1)//2, (size-1)//2)
         self.root = CubeNode(self.origin, size)
-        self.size
+        self.size = size
 
-    def search(self, root, point):
+    #nearest nehbor search within octant
+
+    def special_distance(self, search_point, node):
+
+        x,y,z = search_point
+        x0,x1,y0, y1, z0, z1 = node.bounds
+
+        #check the bounds of the octant
+        if x < x0:
+            newx = x0
+        elif x > x1:
+            newx = x1
+        else:
+            newx = x
+
+        if y < y0:
+            newy = y0
+        elif y > y1:
+            newy = y1
+        else:
+            newy = y
+
+        if z < z0:
+            newz = z0
+        elif z > z1:
+            newz = z
+
+        return self.dist(search_point, (newx, newy, newz))
+
+
+
+        #perpendicular quadrant, special distance == distance from edge
+        #crosswise quadrant, special distance == one axis the same, others point to 1,1 off
+
+
+    def find_nearest_point2(self, searchpoint):
+        q = MyPriorityQueue()
+        #put root.origin in queue
+        q.put(self.root, self.dist(self.closest_point_within_octant(self.root.origin, searchpoint)))
+
+        while len(q) > 0:
+            next_object = q.get()
+            if isinstance(next_object, tuple):
+                return tuple
+
+                #this is the closest point, because it has a shorter distance
+                #if self.dist(searchpoint, next_object) < self.dist(searchpoint, mindistpoint):
+                #    mindistpoint = next_object
+            else:
+                for childnode in next_object.children:
+                    if childnode is not None:
+                        q.put(childnode, self.special_distance(searchpoint, childnode))
+                    for point in childnode.points:
+                        q.put(point, self.dist(searchpoint, point))
+
+
+
+    def find_nearest_point(self, point):
+        return self.nearest_point_aux(self.root, point)
+
+    def nearest_point_aux(self, root, point):
         if point[0] == root.origin[0] or point[1] == root.origin[1] or point[2] == root.origin[2] or root.size <=1:
             #find nearest point
 
@@ -52,11 +132,12 @@ class Octree():
             return mindist
 
         else:
-            quandrant_number = self.find_cubic_quadrant(root, point)
-            if not quandrant_number:
-                return None
+            quandrant_number = self.find_quadrant_number(root, point)
             child = root.children[quandrant_number]
-            return self.search(child, point)
+            if child:
+                return self.search(child, point)
+            else:
+                adjacent_children = self.get_adjacent_children(quandrant_number)
 
     def find_quadrant_number(self,root, point):
         x_0, y_0, z_0 = root.origin
@@ -76,9 +157,38 @@ class Octree():
         quadrant = ones*1 + twos*2 + threes*4
         return quadrant
 
-        #if nochildren / is leaf
+    def dist(self, p1, p2):
+        return (p1[0] - p2[0])**2 + (p2[1] - p1[1])**2 + (p2[2] - p2[2])**2
 
-    def insert(self, root, point):
+    def closest_point_within_octant(self, node, point):
+        quadrant_number = self.find_quadrant_number(node, point)
+        x = quadrant_number & 1
+        y = quadrant_number & 2
+        z = quadrant_number & 4
+        if x == 1:
+            newx = node.origin[0] +1
+        else:
+            newx = node.origin[0] -1
+
+        if y == 1:
+            newy = node.origin[1] +1
+        else:
+            newy = node.origin[1] -1
+
+        if z == 1:
+            newz = node.origin[2] +1
+        else:
+            newz = node.origin[2] -1
+
+        return (newx, newy, newz)
+
+
+        #if nochildren / is leaf
+    def insert(self, point):
+        self.insert_aux(self.root, point)
+
+
+    def insert_aux(self, root, point):
         #error if point larger than
         if root.size <= 1:
             root.points.append(point)
@@ -88,14 +198,14 @@ class Octree():
         else:
             quadrant_number = self.find_quadrant_number(root, point)
             if root.children[quadrant_number]:
-                self.insert(root.children[quadrant_number], point)
+                self.insert_aux(root.children[quadrant_number], point)
             else:
                 #create new node
                 #find out whether x is < or >, #find out whether y is < or >
                 new_origin = self.find_new_origin(root, quadrant_number,  root.size//2,point)
                 new_node = CubeNode(new_origin, root.size//2)
                 root.children[quadrant_number] = new_node
-                self.insert(root.children[quadrant_number], point)
+                self.insert_aux(root.children[quadrant_number], point)
 
     def find_new_origin(self,root, quadrant_number, size, point):
 
@@ -136,6 +246,11 @@ def octree_insert_test():
 
 #octree_insert_test()
 
+#x = Octree(16)
+#pq = PriorityQueue
+#pq.put(x.root, 1)
+
+#Holy fuck, what if the nearest search value is not in the same branch????
 
 
 #kd tree
