@@ -96,7 +96,7 @@ class Octree():
     def find_nearest_point(self, searchpoint):
         q = MyPriorityQueue()
         #put root.origin in queue
-        q.put(self.root, self.dist(self.closest_point_within_octant(self.root.origin, searchpoint)))
+        q.put(self.root,0)
 
         while len(q) > 0:
             next_object = q.get()
