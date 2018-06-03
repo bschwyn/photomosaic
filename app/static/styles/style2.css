@@ -1,0 +1,34 @@
+
+body {
+    background-color: coral
+}
+
+.top-card {
+    border: solid;
+    background-color: turquoise;
+    min-width: 1300px;
+    width: 100%;
+
+}
+
+.submitted-picture {
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 50px;
+    vertical-align: top;
+}
+
+.picture-card {
+    overflow: scroll;
+    height: 900px;
+    width: 600px;
+}
+
+.transformed-picture {
+    overflow: scroll;
+    display: inline-block;
+    height: 900px;
+    width: 600px;
+    vertical-align: top;
+    margin-top: 50px;
+}

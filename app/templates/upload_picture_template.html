@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}" type="text/css" />
+
+</head>
+    <body>
+        <div class="top-section">
+            <div class="row">
+                <h1>Photomosaic</h1>
+                <h3 class="index-size"> Upload a picture to turn it into a mosaic</h3>
+
+                <div class="bla-forms ">
+                    <div class="local-image-">
+                        <form action = "http://localhost:5000/uploader" method = "POST" enctype = "multipart/form-data">
+                            <input class="local-image-upload" type = "file" name = "file" />
+                            <input class="local-image-submit" type = "submit"/>
+                        </form >
+                    </div>
+                    <div class="url-image">
+                        <form id="url_form" method="post" action="http://localhost:5000/uploader_url">
+                            <input class="url-image-upload" id="url_box" name="url" maxlength="100000" placeholder="Upload or enter Image URL"  type="text"  />
+                            <input class="url-image-submit" id="url_submit" name="search_button" value=""  type="submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

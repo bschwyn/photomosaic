@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Uploaded Picture</title>
+    </head>
+    <body>
+    <title>Hello</title>
+        {% if filename %}
+        <h1><img src="{{ url_for('static', filename=filename) }}"> this is the rotated image </h1>
+        </form >
+        {% else %}
+        <h1>no image for whatever reason</h1>
+        {% endif %}
+  </body>
+</html>

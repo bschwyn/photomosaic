@@ -2,10 +2,12 @@ import os
 from PIL import Image
 import pickle
 import time
-from octree import *
 
 #to do list for flask website
 #
+
+import sys
+import time
 
 class OriginalPhoto():
 
@@ -20,11 +22,14 @@ class Photomosaic():
         self.mosaic_source_directory = source_directory
 
     def construct_mosaic(self, rows, cols, scale):
+
+
         im = Image.open(self.pic_file)
         gridbox_size = self.get_grid_size(rows, cols, im, scale)
         rgb_matrix = self.construct_average_color_grid( rows, cols, im)
         nearest_photos = self.get_photo_grid(gridbox_size, rows, cols, rgb_matrix, self.mosaic_source_directory)
         final_photos = self.stitch_photos(gridbox_size, nearest_photos)
+        end = time.time()
         return final_photos
 
     def get_grid_size(self, rows, cols, image, scale):
@@ -48,12 +53,12 @@ class Photomosaic():
         return rgb_matrix
 
     def get_colorfiles(self, source_pictures):
-        if os.path.isfile('./averagecolors_to_pictures7.pickle'):
-            with open('./averagecolors_to_pictures7.pickle', 'rb') as handle:
-                color_files = pickle.loads(handle.read())
+        if os.path.isfile('/home/ben/Projects/photomosaic/app/averagecolors_to_pictures.pickle'):
+            with open('/home/ben/Projects/photomosaic/app/averagecolors_to_pictures.pickle', 'rb') as handle:
+                color_files_list = pickle.loads(handle.read())
         else:
-            color_files = self.construct_color_files_dict(source_pictures)
-        return color_files
+            color_files_list = self.construct_color_files_list(source_pictures)
+        return color_files_list
 
     def get_photo_grid(self, gridbox_size, rows, cols, rgb_matrix, source_pictures):
         """given a matrix of colors, creates a matrix of photos where each photo has the nearest color average to the grid location.
@@ -70,9 +75,10 @@ class Photomosaic():
                 photo = self.find_nearest_photo_L2norm(r, g, b, color_files)
                 resized_nearest_photo = photo.resize((w,h))
                 nearest_photos[i][j] = resized_nearest_photo
+                photo.close()
         return nearest_photos
 
-    def construct_color_files_dict(self, source_pictures):
+    def construct_color_files_list(self, source_pictures):
         avg_colors_of_pictures = {}
         for root, subFolders, files in os.walk(source_pictures):
             for file in files:
@@ -89,14 +95,8 @@ class Photomosaic():
         self.save_colors(avg_colors_of_pictures)
         return avg_colors_of_pictures
 
-    def construct_color_octree(self, color_files):
-        efficient_color_files = Octree(256)
-        for rgb_point in color_files.keys():
-            efficient_color_files.insert(rgb_point)
-
-
     def save_colors(self, avg_colors_of_pictures):
-        with open('./averagecolors_to_pictures7.pickle', 'wb') as f:
+        with open('/home/ben/Projects/photomosaic/app/averagecolors_to_pictures.pickle', 'wb') as f:
             pickle.dump(avg_colors_of_pictures, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 
@@ -112,16 +112,13 @@ class Photomosaic():
             if dist < mindist:
                 mindist = dist
                 minfile = file
-        im = Image.open(minfile)
+        try:
+            im = Image.open(minfile) #keep this open I think??
+        except FileNotFoundError:
+            im = Image.open("/home/ben/Projects/photomosaic/app/static/error/error.png")
 
         print(minfile)
-        return im
-
-    def find_nearest_photo_l2norm_octree(self, r,b,g, colorlist):
-        nearest = a.find_nearest_point((r,g,b))
-
-        minfile = colorlist[(r,g,b)]
-        im = Image.open(minfile)
+        print(minfile, file=sys.stderr)
         return im
 
 
@@ -140,7 +137,7 @@ class Photomosaic():
                 #x,y are the upper left orner
                 x,y = width*j, height*i
                 im.paste(source_photo, box = (x,y))
-        im.close()
+        #im.close()
         return im
 
     def get_average_color(self, x,y, w,h, image): #tested
@@ -226,7 +223,7 @@ def test_pickle():
         c = pickle.loads(f.read())
     assert d == c
 
-def test_construct_color_files_dict():
+def test_construct_color_files_list():
 
     source_pictures = '/home/ben/Pictures/'
     d = {}
@@ -247,21 +244,28 @@ def test_construct_color_files_dict():
     print(count)
 
 
-test_construct_color_files_dict()
-test_pickle()
-test_get_average_color()
-test_average_color_grid()
-test_stitch_photos()
-print('testspass')
+#test_construct_color_files_list()
+#test_pickle()
+#test_get_average_color()
+#test_average_color_grid()
+#test_stitch_photos()
+#print('testspass')
 #having even more test cases would have helped --- I didn't write ones for some of the other functions that seemed harder to pass
 
 #usual /home/ben/Documents/AirBrush_20180306185448.jpg
-def main():
+
+
+"""def main():
     print('start')
-    photomosaic = Photomosaic("/home/ben/Pictures/backup pics/1c17411e3b4343dbcc7206e41585ae6d-d5xkb9b.jpg",'/home/ben/Pictures/')
-    x = photomosaic.construct_mosaic(10, 10, 1)
-    x.save('/home/ben/Documents/aphotomosaic13.jpg')
+    
+    start = time.time()
+    photomosaic = Photomosaic("/home/ben/Pictures/heroes/1518057175453-D4FA2544-E96B-4B0D-84F0-43EB61AAC8DD.jpeg",'/home/ben/Pictures/')
+    x = photomosaic.construct_mosaic(15, 15, 1)
+    x.save('/home/ben/Documents/aphotomosaic16.jpg')
     print('end')
+    
+    print("total time", end-start)
+    print("total time", end - start, file = sys.stderr)
 
 if __name__ == "__main__":
-    main()
+    main()"""
