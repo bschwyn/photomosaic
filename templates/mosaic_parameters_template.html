@@ -61,7 +61,7 @@
                     <img src="{{ url_for('static', filename=filename) }}">
                 </div>
                 <div class="mosaic-parameters">
-                    <form action = "http://benschwyn.com/create_mosaic/{{filename}}/" name = "myForm" id="myFormID" onsubmit="return validate();" method = "POST"
+                    <form action = "http://localhost/create_mosaic/{{filename}}/" name = "myForm" id="myFormID" onsubmit="return validate();" method = "POST"
             enctype = "multipart/form-data">
                         <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
                         <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>

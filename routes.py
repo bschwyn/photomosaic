@@ -10,6 +10,8 @@ import uuid
 import tempfile
 import itertools
 from .photomosaics2 import Photomosaic
+import logging
+
 
 def uniquify(filename):
     head, tail = filename.split('.')
@@ -57,8 +59,12 @@ def upload_file():
         target = os.path.join(app.root_path, 'static')
         if not os.path.isfile(os.path.join(target, f.filename)):
             filename = f.filename
-            f.save(os.path.join('~/Documents', filename))
-            return save
+            log = logging.getLogger("ex")
+            try:
+                f.save('/home/ben/Documents/' + filename)
+            except Exception as e:
+                log.exception(e)
+            return "workjlkajdlfk"
             #return os.path.join(target, filename))
 #            f.save(os.path.join(target, filename))
             #return "saved"
@@ -67,7 +73,7 @@ def upload_file():
         #    f.save(os.path.join(target, filename))
         #defaultpic = "defaultpic.jpg"
 #        return "works so far"+ f.filename + target
-""" f = request.files['file']
+"""f = request.files['file']
         target = os.path.join(app.root_path, 'static')
         print(os.path.join(target, f.filename), file=sys.stderr)
         #check if file with same name
