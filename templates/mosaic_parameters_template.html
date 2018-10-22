@@ -27,23 +27,23 @@
 
                   var works = true
 
-                  if (!isInt(scale) || scale < 1 || scale > 300) {
-                      var message = "enter a scale from 1 to 10"
+                  if (!isInt(scale) || scale < 1 || scale > 5) {
+                      var message = "enter an integer scale from 1 to 5"
                       var works = false
                   }
                   if (!isInt(height) || height < 1 || height > 300) {
-                      var message = "enter a height from 1 to 300"
+                      var message = "enter an integer height from 1 to 300"
                       var works = false
                   }
                   if (!isInt(width) || width < 1 || width >300) {
-                      var message = "enter a width from 1 to 300"
+                      var message = "enter an integer width from 1 to 300"
                       var works = false
                   }
 
                   alert(message)
                   if (!works) {
                       return false
-                  ]
+                  }
                 }
                 catch(err) {
                     alert(err.message);
@@ -61,17 +61,17 @@
                     <img src="{{ url_for('static', filename=filename) }}">
                 </div>
                 <div class="mosaic-parameters">
-                    <form action = "http://localhost/create_mosaic/{{filename}}/" name = "myForm" id="myFormID" onsubmit="return validate();" method = "POST"
+                    <form action = "http://benschwyn.com/mosaic/{{filename}}/" name = "myForm" id="myFormID" onsubmit="return validate();" method = "POST"
             enctype = "multipart/form-data">
-                        <input type = "number" name="width" maxlength="100000" placeholder="number of images across"/>
-                        <input type = "number" name="height" maxlength = "100000" placeholder="number of images down"/>
-                        <input type = "number" name="scale" maxlength = "100000" placeholder="relative size of final image" />
+                        <input type = "number" name="width" value="30" maxlength="100000" placeholder="number of images across"/>
+                        <input type = "number" name="height" value="30"  maxlength = "100000" placeholder="number of images down"/>
+                        <input type = "number" name="scale" value="1" maxlength = "100000" placeholder="relative size of final image" />
                         <input type = "submit" value="submit"/>
                     </form >
                 </div>
             </div>
             <div class="transformed-picture">
-                <img src="{{url_for('static', filename=defaultpic)}}">
+                <img src="{{url_for('static', filename=defualtpic)}}">
             </div>
         </div>
         <div class="explainy-card">

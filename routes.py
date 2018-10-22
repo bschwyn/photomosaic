@@ -1,3 +1,4 @@
+
 from photomosaic import app
 from flask import Flask, request, render_template
 import urllib.request
@@ -48,11 +49,11 @@ def timeing():
     return end-start
 
 
-@app.route('/upload/')
+@app.route('/mosaic/')
 def upload():
     return render_template("upload_picture_template.html")
 
-@app.route('/uploader', methods=['GET', 'POST'])
+@app.route('/mosaic/uploader', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
@@ -60,36 +61,18 @@ def upload_file():
         if not os.path.isfile(os.path.join(target, f.filename)):
             filename = f.filename
             log = logging.getLogger("ex")
-            try:
-                f.save('/home/ben/Documents/' + filename)
-            except Exception as e:
-                log.exception(e)
-            return "workjlkajdlfk"
-            #return os.path.join(target, filename))
-#            f.save(os.path.join(target, filename))
-            #return "saved"
-        #else:
-        #    filename =uniquify(f.filename)
-        #    f.save(os.path.join(target, filename))
-        #defaultpic = "defaultpic.jpg"
-#        return "works so far"+ f.filename + target
-"""f = request.files['file']
-        target = os.path.join(app.root_path, 'static')
-        print(os.path.join(target, f.filename), file=sys.stderr)
-        #check if file with same name
-        if not os.path.isfile(os.path.join(target, f.filename)):
-            filename = f.filename
-            f.save(os.path.join(target, filename))
+            f.save(os.path.join(target,filename))
+#            return os.path.join(target, filename)
         else:
-            #not guaranteed to save a unique file, just highly likely
-            filename = uniquify(f.filename)
+            filename =uniquify(f.filename)
             f.save(os.path.join(target, filename))
+        #check if file with same name
         defaultpic="defaultpic.jpg"
         print(filename, file=sys.stderr)
 
     return render_template('mosaic_parameters_template.html', filename=filename, defaultpic=defaultpic)
-"""
-@app.route('/uploader_url', methods=['GET', 'POST'])
+
+@app.route('/mosaic/uploader_url', methods=['GET', 'POST'])
 def download_url_and_upload():
     if request.method == 'POST':
         url = request.form['url']
@@ -120,13 +103,13 @@ def rotate(filename):
 #different, more complicated templates
 
 
-@app.route('/create_mosaic/<filename>/', methods=['GET', 'POST'])
+@app.route('/mosaic/<filename>/', methods=['GET', 'POST'])
 def mosaic(filename):
     width = int(request.form['width'])
     height = int(request.form['height'])
     scale = int(request.form['scale'])
     print(width, height, scale, file=sys.stderr)
-    photomosaic = Photomosaic("/var/www/photomosaic/photomosaic/static/" + filename, '/home/ben/Pictures/')
+    photomosaic = Photomosaic("/var/www/photomosaic/photomosaic/static/" + filename, '/home/ben/Pictures/mosaicsourcephotos/')
     #if width, height, scale out of bounds, add form validation
     x = photomosaic.construct_mosaic(width, height, scale)
 

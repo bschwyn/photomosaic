@@ -1,13 +1,13 @@
 
 body {
-    background-color: coral
+    background-image: url("hecate.png");
 }
 
 .top-card {
     border: solid;
-    background-color: turquoise;
+    background-color: #5278A6;
     min-width: 1300px;
-    width: 100%;
+    /*width: 100%;*/
 
 }
 
@@ -19,16 +19,22 @@ body {
 }
 
 .picture-card {
-    overflow: scroll;
+    /* overflow: scroll; 
     height: 900px;
-    width: 600px;
+    width: 600px; */
+}
+
+.picture-card>img {
+    max-height: 900px;
+    max-width: 600px;
+    height: auto;
+    width: auto;
 }
 
 .transformed-picture {
-    overflow: scroll;
     display: inline-block;
-    height: 900px;
-    width: 600px;
+    /*height: 900px;
+    width: 600px;*/
     vertical-align: top;
     margin-top: 50px;
 }

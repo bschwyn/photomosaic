@@ -1,14 +1,170 @@
-ERROR:ex:[Errno 2] No such file or directory: '~/Documents/1200px-Hamster_057eue.jpg'
+ERROR:flask.app:Exception on /create_mosaic/AhiXba93c26a0a0f3432a8344182e9680f10d.jpg/ [POST]
 Traceback (most recent call last):
-  File "/var/www/photomosaic/photomosaic/routes.py", line 64, in upload_file
-    f.save('~/Documents/' + filename)
-  File "/usr/local/lib/python3.6/dist-packages/werkzeug/datastructures.py", line 2725, in save
-    dst = open(dst, 'wb')
-FileNotFoundError: [Errno 2] No such file or directory: '~/Documents/1200px-Hamster_057eue.jpg'
-ERROR:ex:[Errno 2] No such file or directory: '~/Documents/1200px-Hamster_057eue.jpg'
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 114, in mosaic
+    x = photomosaic.construct_mosaic(width, height, scale)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 31, in construct_mosaic
+    nearest_photos = self.get_photo_grid(gridbox_size, rows, cols, rgb_matrix, self.mosaic_source_directory)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 76, in get_photo_grid
+    photo = self.find_nearest_photo_L2norm(r, g, b, color_files)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 118, in find_nearest_photo_L2norm
+    im = Image.open(minfile) #keep this open I think??
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 2410, in open
+    fp = builtins.open(filename, "rb")
+UnicodeEncodeError: 'ascii' codec can't encode character '\xf6' in position 50: ordinal not in range(128)
+ERROR:flask.app:Exception on /create_mosaic/AhiXbbdd8175835f44a9881eac4c2ef08c259.jpg/ [POST]
 Traceback (most recent call last):
-  File "/var/www/photomosaic/photomosaic/routes.py", line 64, in upload_file
-    f.save('~/Documents/' + filename)
-  File "/usr/local/lib/python3.6/dist-packages/werkzeug/datastructures.py", line 2725, in save
-    dst = open(dst, 'wb')
-FileNotFoundError: [Errno 2] No such file or directory: '~/Documents/1200px-Hamster_057eue.jpg'
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 114, in mosaic
+    x = photomosaic.construct_mosaic(width, height, scale)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 31, in construct_mosaic
+    nearest_photos = self.get_photo_grid(gridbox_size, rows, cols, rgb_matrix, self.mosaic_source_directory)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 76, in get_photo_grid
+    photo = self.find_nearest_photo_L2norm(r, g, b, color_files)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 118, in find_nearest_photo_L2norm
+    im = Image.open(minfile) #keep this open I think??
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 2410, in open
+    fp = builtins.open(filename, "rb")
+UnicodeEncodeError: 'ascii' codec can't encode character '\xf6' in position 50: ordinal not in range(128)
+ERROR:flask.app:Exception on /uploader [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 73, in upload_file
+    return render_template('mosaic_parameters_template.html', filename=filename, defaultpic=defaultpic)
+UnboundLocalError: local variable 'filename' referenced before assignment
+ERROR:flask.app:Exception on /create_mosaic/32451898_1739442222810557_6931374043698298880_n.jpg/ [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 114, in mosaic
+    x = photomosaic.construct_mosaic(width, height, scale)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 34, in construct_mosaic
+    final_photos = self.stitch_photos(gridbox_size, nearest_photos)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 137, in stitch_photos
+    im = Image.new("RGB", size=(width*cols, height*rows))
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 2150, in new
+    _check_size(size)
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 2129, in _check_size
+    raise ValueError("Width and height must be >= 0")
+ValueError: Width and height must be >= 0
+ERROR:flask.app:Exception on /create_mosaic/32451898_1739442222810557_6931374043698298880_n.jpg/ [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 118, in mosaic
+    x.save("/var/www/photomosaic/photomosaic/static/mosaics/" + "mosaic_"+ filename)
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 1826, in save
+    save_handler(self, fp, filename)
+  File "/usr/lib/python3/dist-packages/PIL/JpegImagePlugin.py", line 746, in _save
+    ImageFile._save(im, fp, [("jpeg", (0, 0)+im.size, 0, rawmode)], bufsize)
+  File "/usr/lib/python3/dist-packages/PIL/ImageFile.py", line 495, in _save
+    e.setimage(im.im, b)
+SystemError: tile cannot extend outside image
+ERROR:flask.app:Exception on /create_mosaic/1200px-Hamster_057euec266b07792a048008f126c3d71fe8397.jpg/ [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 114, in mosaic
+    x = photomosaic.construct_mosaic(width, height, scale)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 34, in construct_mosaic
+    final_photos = self.stitch_photos(gridbox_size, nearest_photos)
+  File "/var/www/photomosaic/photomosaic/photomosaics2.py", line 136, in stitch_photos
+    cols = len(nearest_photos[0])
+IndexError: list index out of range
+ERROR:flask.app:Exception on /uploader [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 73, in upload_file
+    return render_template('mosaic_parameters_template.html', filename=filename, defaultpic=defaultpic)
+UnboundLocalError: local variable 'filename' referenced before assignment
+ERROR:flask.app:Exception on /uploader [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/var/www/photomosaic/photomosaic/routes.py", line 73, in upload_file
+    return render_template('mosaic_parameters_template.html', filename=filename, defaultpic=defaultpic)
+UnboundLocalError: local variable 'filename' referenced before assignment

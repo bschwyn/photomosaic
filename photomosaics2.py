@@ -2,12 +2,15 @@ import os
 from PIL import Image
 import pickle
 import time
+import sys
 
 #to do list for flask website
 #
-
+import logging
 import sys
 import time
+logging.basicConfig(filename='/var/www/photomosaic/photomosaic/logs.log')
+logger = logging.getLogger("ex")
 
 class OriginalPhoto():
 
@@ -85,6 +88,7 @@ class Photomosaic():
                 # if file is a picture
                 # calculate rgb average
                 # save rgb average and filename
+                print(file, file=sys.stderr)
                 try:
                     with Image.open(root +"/" + file) as im:
                         w, h = im.size
@@ -114,8 +118,8 @@ class Photomosaic():
                 minfile = file
         try:
             im = Image.open(minfile) #keep this open I think??
-        except FileNotFoundError:
-            im = Image.open("/home/ben/Projects/photomosaic/app/static/error/error.png")
+        except Exception: #FileNotFoundError, also UnicodeEncodeError
+            im = Image.open("/var/www/photomosaic/photomosaic/static/error/error.png")
 
         print(minfile)
         print(minfile, file=sys.stderr)
@@ -254,18 +258,18 @@ def test_construct_color_files_list():
 
 #usual /home/ben/Documents/AirBrush_20180306185448.jpg
 
-
 """def main():
-    print('start')
+    print('start', sys)
     
     start = time.time()
-    photomosaic = Photomosaic("/home/ben/Pictures/heroes/1518057175453-D4FA2544-E96B-4B0D-84F0-43EB61AAC8DD.jpeg",'/home/ben/Pictures/')
+    photomosaic = Photomosaic("/home/ben/Pictures/mosaicsourcephotos/39.jpg",'/home/ben/Pictures/mosaicsourcephotos/')
     x = photomosaic.construct_mosaic(15, 15, 1)
-    x.save('/home/ben/Documents/aphotomosaic16.jpg')
+    x.save('/var/www/photomosaic/photomosaic/test39.jpg')
     print('end')
-    
+    end = time.time()
     print("total time", end-start)
     print("total time", end - start, file = sys.stderr)
 
 if __name__ == "__main__":
-    main()"""
+    main()
+"""
