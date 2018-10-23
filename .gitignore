@@ -1,3 +1,4 @@
 .idea/
 app2/
 *.logs
+static/mosaic/mosaics*

@@ -10,7 +10,7 @@ from PIL import Image
 import uuid
 import tempfile
 import itertools
-from .photomosaics2 import Photomosaic
+from .photomosaic_model import Photomosaic
 import logging
 
 
